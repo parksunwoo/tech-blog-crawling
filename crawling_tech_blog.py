@@ -92,7 +92,7 @@ def extract_blog_daan(soup):
 
         blog_title = new_post.select('h3')[0].text
         created_date = new_post.select('time')[0].text  
-        url_suffix = new_post.select('a')[1].attrs['href']
+        url_suffix = new_post.select('a')[2].attrs['href'].split('?')[0]
         url = url_suffix
 
         content = f"<a href={url}>" + blog_title + "</a>" + " " + created_date + "<br/>\n"

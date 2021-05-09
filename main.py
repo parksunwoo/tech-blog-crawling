@@ -33,16 +33,17 @@ if __name__ == "__main__":
     upload_contents = ''
     # upload_contents += '## 네이버'
     # upload_contents += extract_blog_naver(soup_naver)
-    upload_contents += '## 카카오'
+    
+    upload_contents += f"### 카카오 <br/>\n"
     upload_contents += extract_blog_kakao(soup_kakao)
-    upload_contents += '## 라인'
+    upload_contents += f"### 라인 <br/>\n"
     upload_contents += extract_blog_line(soup_line)
-    upload_contents += '## 배달의민족'
+    upload_contents += f"### 배달의민족 <br/>\n"
     upload_contents += extract_blog_baemin(soup_baemin)
-    upload_contents += '## 당근마켓'
+    upload_contents += f"### 당근마켓 <br/>\n"
     upload_contents += extract_blog_daan(soup_daan)    
     upload_contents += extract_blog_daan(soup_daan_ml)
-    upload_contents += '## 토스'
+    upload_contents += f"### 토스 <br/>\n"
     upload_contents += extract_blog_toss(soup_toss)        
 
     repo = get_github_repo(access_token, repository_name)
