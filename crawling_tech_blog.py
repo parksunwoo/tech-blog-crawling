@@ -1,23 +1,32 @@
 import requests
 from bs4 import BeautifulSoup
+# import feedparser
 
 
 def parsing_beautifulsoup(url):
     data = requests.get(url)
-
     html = data.text
+    
     soup = BeautifulSoup(html, 'html.parser')
     return soup
 
+
+def parsing_feedparser(url):
+    print('parsing_feedparser')
+    feed = feedparser.parse(url)
+    return feed
+
+
 def extract_blog_naver(soup):
-    # print('extract_blog_naver')
-    # print(soup)
+    print('extract_blog_naver')
+    print(soup)
 
     upload_contents = ''
-    new_posts = soup.select(".contents > .post_article")
+    new_posts = soup.select(".contents hworld > .post_article")
     url_prefix_naver = "https://d2.naver.com/helloworld"
 
-    print(new_posts)
+    # print('1'*100)
+    # print(new_posts)
 
     for new_post in new_posts[:5]:
         blog_title = new_post.select("a")[0].text
