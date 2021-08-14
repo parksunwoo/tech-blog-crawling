@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup
 # import feedparser
 
 
+#https://github.com/jamjam0109/notion/blob/16be770832b49d9855b94f7d13c6fc517db22b98/crawling_selenium.py
+#https://github.com/namgunghyeon/bot/blob/2831138f11251a08b02cc938f477ff0a51937b6b/tech_bot/src/crawling/naver.py
 def parsing_beautifulsoup(url):
     data = requests.get(url)
     html = data.text
@@ -10,29 +12,21 @@ def parsing_beautifulsoup(url):
     soup = BeautifulSoup(html, 'html.parser')
     return soup
 
+def parsing_feedparse(url):
+    # feed = feedparser.parse(url)
+    # return feed
+    pass
 
-def parsing_feedparser(url):
-    print('parsing_feedparser')
-    feed = feedparser.parse(url)
-    return feed
-
-
-def extract_blog_naver(soup):
-    print('extract_blog_naver')
-    print(soup)
+def extract_blog_naver(feed):
+    # print('extract_blog_naver')
 
     upload_contents = ''
-    new_posts = soup.select(".contents hworld > .post_article")
-    url_prefix_naver = "https://d2.naver.com/helloworld"
-
-    # print('1'*100)
-    # print(new_posts)
-
-    for new_post in new_posts[:5]:
-        blog_title = new_post.select("a")[0].text
-        url_suffix = new_post.select("a")[1].attrs['href']        
-        created_date = new_post.select("dd")[0].text
-        url = url_prefix_naver + url_suffix
+    for post in feed.entries:
+        # print(post)
+        # print('@'*100)
+        blog_title = post.title
+        created_date = post.updated
+        url = post.id
 
         content = f"<a href={url}" + blog_title + "</a>" + ", " + created_date + "<br/>\n"
         upload_contents += content
@@ -124,4 +118,26 @@ def extract_blog_toss(soup):
         content = f"<a href={url}>" + blog_title + "</a>" + " " + created_date + "<br/>\n"
         upload_contents += content
 
-    return upload_contents 
+    return upload_contents
+
+
+def extract_blog_spoqa(soup):
+    print('@'*100)
+    print(soup)
+    
+    upload_contents = ''
+    new_posts = soup.select(".posts > .post-item")
+
+    for new_post in new_posts[:5]:
+        print('@'*100)
+        print(new_post)
+        
+        blog_title = new_post.select('.post-title-words')[0].text
+        created_date = new_post.select('.post-date')[0].text  
+        url_suffix = new_post.select('a')[0].attrs['href']
+        url = url_suffix
+
+        content = f"<a href={url}>" + blog_title + "</a>" + " " + created_date + "<br/>\n"
+        upload_contents += content
+
+    return upload_contents
