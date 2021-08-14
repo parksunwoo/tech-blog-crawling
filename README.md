@@ -6,5 +6,5 @@ Github Actions 을 사용한 매일 아침 9시 Issues 등록
 - [X] [라인](https://engineering.linecorp.com/ko/blog/)
 - [X] [배달의민족](https://woowabros.github.io/)
 - [X] [토스](https://blog.toss.im/category/tossteam/)
-
+- [X] [스포카](https://spoqa.github.io/)
 

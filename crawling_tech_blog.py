@@ -1,7 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-# import feedparser
-
+import feedparser
 
 #https://github.com/jamjam0109/notion/blob/16be770832b49d9855b94f7d13c6fc517db22b98/crawling_selenium.py
 #https://github.com/namgunghyeon/bot/blob/2831138f11251a08b02cc938f477ff0a51937b6b/tech_bot/src/crawling/naver.py
@@ -13,17 +12,12 @@ def parsing_beautifulsoup(url):
     return soup
 
 def parsing_feedparse(url):
-    # feed = feedparser.parse(url)
-    # return feed
-    pass
+    feed = feedparser.parse(url)
+    return feed
 
 def extract_blog_naver(feed):
-    # print('extract_blog_naver')
-
     upload_contents = ''
     for post in feed.entries:
-        # print(post)
-        # print('@'*100)
         blog_title = post.title
         created_date = post.updated
         url = post.id
@@ -122,16 +116,10 @@ def extract_blog_toss(soup):
 
 
 def extract_blog_spoqa(soup):
-    print('@'*100)
-    print(soup)
-    
     upload_contents = ''
     new_posts = soup.select(".posts > .post-item")
 
     for new_post in new_posts[:5]:
-        print('@'*100)
-        print(new_post)
-        
         blog_title = new_post.select('.post-title-words')[0].text
         created_date = new_post.select('.post-date')[0].text  
         url_suffix = new_post.select('a')[0].attrs['href']
