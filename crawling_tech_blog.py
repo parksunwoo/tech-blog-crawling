@@ -22,7 +22,7 @@ def extract_blog_naver(feed):
         created_date = post.updated
         url = post.id
 
-        content = f"<a href={url}" + blog_title + "</a>" + ", " + created_date + "<br/>\n"
+        content = f"<a href={url}>" + blog_title + "</a>" + " " + created_date + "<br/>\n"
         upload_contents += content
 
     return upload_contents
@@ -100,14 +100,14 @@ def extract_blog_daan(soup):
 
 def extract_blog_toss(soup):
     upload_contents = ''
-    new_posts = soup.select("#load_list > .list-card__item")
+    new_posts = soup.select(".p-container__inner > ul")[0]
+    url_prefix_toss = "https://blog.toss.im/category/allabouttoss/tossteam/1"
 
-    for new_post in new_posts[:5]:
-
-        blog_title = new_post.select('h4')[0].text
-        created_date = new_post.select('.list-card__date')[0].text  
-        url_suffix = new_post.select('a')[0].attrs['href']
-        url = url_suffix
+    for i in range(5):
+        blog_title = new_posts.select('h4')[i].text
+        created_date = new_posts.select('time')[i].text  
+        url_suffix = new_posts.select('a')[i].attrs['href']
+        url = url_prefix_toss + url_suffix
 
         content = f"<a href={url}>" + blog_title + "</a>" + " " + created_date + "<br/>\n"
         upload_contents += content
