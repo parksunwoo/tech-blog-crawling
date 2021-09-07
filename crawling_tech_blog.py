@@ -17,7 +17,8 @@ def parsing_feedparse(url):
 
 def extract_blog_naver(feed):
     upload_contents = ''
-    for post in feed.entries:
+    
+    for post in feed.entries[:10]:
         blog_title = post.title
         created_date = post.updated
         url = post.id
