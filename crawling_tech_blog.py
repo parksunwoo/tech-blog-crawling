@@ -119,12 +119,13 @@ def extract_blog_toss(soup):
 def extract_blog_spoqa(soup):
     upload_contents = ''
     new_posts = soup.select(".posts > .post-item")
+    url_prefix_spoqa = "https://spoqa.github.io/"
 
     for new_post in new_posts[:5]:
         blog_title = new_post.select('.post-title-words')[0].text
         created_date = new_post.select('.post-date')[0].text  
         url_suffix = new_post.select('a')[0].attrs['href']
-        url = url_suffix
+        url = url_prefix_spoqa + url_suffix
 
         content = f"<a href={url}>" + blog_title + "</a>" + " " + created_date + "<br/>\n"
         upload_contents += content
