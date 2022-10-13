@@ -102,7 +102,7 @@ def extract_blog_daan(soup):
 def extract_blog_toss(soup):
     upload_contents = ''
     new_posts = soup.select(".p-container__inner > ul")[0]
-    url_prefix_toss = "https://blog.toss.im/category/allabouttoss/tossteam/1"
+    url_prefix_toss = "https://blog.toss.im"
 
     for i in range(5):
         blog_title = new_posts.select('h4')[i].text
