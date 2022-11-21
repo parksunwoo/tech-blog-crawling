@@ -41,8 +41,13 @@ if __name__ == "__main__":
     upload_contents += extract_blog_line(soup_line)
     upload_contents += f"### 배달의민족 <br/>\n"
     upload_contents += extract_blog_baemin(soup_baemin)
-    upload_contents += f"### 토스 <br/>\n"
-    upload_contents += extract_blog_toss(soup_toss)
+    
+    try:
+        upload_contents += f"### 토스 <br/>\n"
+        upload_contents += extract_blog_toss(soup_toss)
+    except IndexError:
+        pass
+
     upload_contents += f"### 스포카 <br/>\n"
     upload_contents += extract_blog_spoqa(soup_spoqa)               
     

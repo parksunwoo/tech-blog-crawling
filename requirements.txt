@@ -2,4 +2,4 @@ beautifulsoup4==4.7.1
 requests==2.22.0
 PyGithub==1.51
 pytz==2019.1
-feedparser==5.2.1
+feedparser==6.0.10
