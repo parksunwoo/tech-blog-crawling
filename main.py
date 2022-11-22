@@ -37,8 +37,16 @@ if __name__ == "__main__":
     upload_contents += extract_blog_naver(feed_naver)
     upload_contents += f"### 카카오 <br/>\n"
     upload_contents += extract_blog_kakao(soup_kakao)
-    upload_contents += f"### 라인 <br/>\n"
-    upload_contents += extract_blog_line(soup_line)
+
+    try:
+        upload_contents += f"### 라인 <br/>\n"
+        upload_contents += extract_blog_line(soup_line)
+    except ConnectionError:
+        pass
+
+    upload_contents += f"### 배달의민족 <br/>\n"
+    upload_contents += extract_blog_baemin(soup_baemin)
+
     upload_contents += f"### 배달의민족 <br/>\n"
     upload_contents += extract_blog_baemin(soup_baemin)
     

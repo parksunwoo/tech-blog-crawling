@@ -30,15 +30,16 @@ def extract_blog_naver(feed):
 
 def extract_blog_kakao(soup):
     upload_contents = ''
-    new_posts = soup.select(".list_post > li")
+    new_posts = soup.select(".elementor-posts-container > article")
     url_prefix_kakao = ""
 
     for new_post in new_posts[:5]:
 
-        blog_title = new_post.select('strong')[0].text
-        created_date = new_post.select('span')[0].text
-        url_suffix = new_post.select_one(".link_post")['href']
-        url = url_prefix_kakao + url_suffix
+        blog_title = new_post.select('h3')[0].text
+        created_date = new_post.select('.elementor-post-date')[0].text
+        url_suffix = new_post.select('a')[0].attrs['href']
+        url = url_suffix
+        # url = url_prefix_kakao + url_suffix
 
         content = f"<a href={url}>" + blog_title + "</a>" + " " + created_date + "<br/>\n"
         upload_contents += content
@@ -48,13 +49,12 @@ def extract_blog_kakao(soup):
 
 def extract_blog_line(soup):
     upload_contents = ''
-    new_posts = soup.select(".ast-row > article")
+    new_posts = soup.select(".post_list > li")
     # url_prefix_line = "https://engineering.linecorp.com/ko/blog/"
 
     for new_post in new_posts[:5]:
-
-        blog_title = new_post.select('h2')[0].text
-        created_date = new_post.select_one('.published').text
+        blog_title = new_post.select('h2')[0].text.decode('euc-kr')
+        created_date = new_post.select_one('.text_date').text
         url_suffix = new_post.select('a')[0].attrs['href']
         url = url_suffix
 
